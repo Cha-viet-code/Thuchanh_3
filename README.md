@@ -1,97 +1,185 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# StudyManager – Thực hành 4 (API & Offline)
 
-# Getting Started
+Ứng dụng Quản lý học tập bằng **React Native CLI + TypeScript**, lấy dữ liệu từ REST API (json-server), dùng được khi offline và tự đồng bộ khi có mạng trở lại.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 1. Cài đặt
 
-## Step 1: Start Metro
+Trong project React Native CLI đã tạo (mã nguồn ở `App.tsx` và `src/`):
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
-
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```bash
+npm install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs
+npm install react-native-screens react-native-safe-area-context
+npm install @react-native-async-storage/async-storage @react-native-community/netinfo
+# iOS
+cd ios && pod install && cd ..
 ```
 
-## Step 2: Build and run your app
+Lưu ý:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+- React Navigation v6 hoặc v7 đều dùng được (code chỉ dùng API chung).
+- Nếu `index.js` đang import `App` thì giữ nguyên, `App.tsx` đã export default.
+- iOS: gọi HTTP tới IP LAN cần thêm ngoại lệ App Transport Security trong `Info.plist` (`NSAllowsArbitraryLoads` hoặc `NSAllowsLocalNetworking`). Android bản debug cho phép HTTP sẵn.
 
-### Android
+## 2. Chạy server giả lập
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```bash
+npm install -g json-server@0.17.4
+json-server --watch db.json --host 0.0.0.0 --port 3000 --delay 800
 ```
 
-### iOS
+Đổi địa chỉ server trong `src/config.ts`:
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+- Máy ảo Android: để trống `LAN_IP` (tự dùng `http://10.0.2.2:3000`).
+- iOS Simulator: để trống (dùng `localhost`).
+- Điện thoại thật: điền `LAN_IP = '192.168.x.x'` (IP máy tính, cùng Wi-Fi).
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## 3. Chạy ứng dụng
 
-```sh
-bundle install
+```bash
+npx react-native start
+npx react-native run-android   # hoặc run-ios
 ```
 
-Then, and every time you update your native dependencies, run:
+## 4. Sơ đồ luồng dữ liệu
 
-```sh
-bundle exec pod install
+````
+Màn hình ──► Hook / Context ──► Service ──► client.request ──► API (json-server)
+ (screens)   useCachedQuery      (api/*)                           ▲
+             useAppData                                            │
+                 │   ghi cache sau GET thành công                  │
+                 ├──────────► Cache (AsyncStorage "cache:<key>")   │
+                 │                                                 │
+                 │   offline: thao tác ghi                         │
+                 └──────────► Outbox (AsyncStorage "outbo# StudyManager – Thực hành 4 (API & Offline)
+
+Ứng dụng Quản lý học tập bằng **React Native CLI + TypeScript**, lấy dữ liệu từ REST API (json-server), dùng được khi offline và tự đồng bộ khi có mạng trở lại.
+
+## 1. Cài đặt
+
+Trong project React Native CLI đã tạo (mã nguồn ở `App.tsx` và `src/`):
+
+```bash
+npm install @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs
+npm install react-native-screens react-native-safe-area-context
+npm install @react-native-async-storage/async-storage @react-native-community/netinfo
+# iOS
+cd ios && pod install && cd ..
+````
+
+Lưu ý:
+
+- React Navigation v6 hoặc v7 đều dùng được (code chỉ dùng API chung).
+- Nếu `index.js` đang import `App` thì giữ nguyên, `App.tsx` đã export default.
+- iOS: gọi HTTP tới IP LAN cần thêm ngoại lệ App Transport Security trong `Info.plist` (`NSAllowsArbitraryLoads` hoặc `NSAllowsLocalNetworking`). Android bản debug cho phép HTTP sẵn.
+
+## 2. Chạy server giả lập
+
+```bash
+npm install -g json-server@0.17.4
+json-server --watch db.json --host 0.0.0.0 --port 3000 --delay 800
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Đổi địa chỉ server trong `src/config.ts`:
 
-```sh
-# Using npm
-npm run ios
+- Máy ảo Android: để trống `LAN_IP` (tự dùng `http://10.0.2.2:3000`).
+- iOS Simulator: để trống (dùng `localhost`).
+- Điện thoại thật: điền `LAN_IP = '192.168.x.x'` (IP máy tính, cùng Wi-Fi).
 
-# OR using Yarn
-yarn ios
+## 3. Chạy ứng dụng
+
+```bash
+npx react-native start
+npx react-native run-android   # hoặc run-ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 4. Sơ đồ luồng dữ liệu
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+```
+Màn hình ──► Hook / Context ──► Service ──► client.request ──► API (json-server)
+ (screens)   useCachedQuery      (api/*)                           ▲
+             useAppData                                            │
+                 │   ghi cache sau GET thành công                  │
+                 ├──────────► Cache (AsyncStorage "cache:<key>")   │
+                 │                                                 │
+                 │   offline: thao tác ghi                         │
+                 └──────────► Outbox (AsyncStorage "outbox") ──────┘
+                               useOutboxSync gửi lần lượt khi có mạng
+```
 
-## Step 3: Modify your app
+- **Đọc (GET)**: `useCachedQuery` hiện ngay dữ liệu trong cache, rồi gọi API nếu có mạng; thành công thì cập nhật state và cache (`{ data, savedAt }`).
+- **Ghi (PATCH/POST)**:
+  - Online: gọi API; đổi trạng thái bài tập dùng _optimistic update_, lỗi thì hoàn tác và báo người dùng.
+  - Offline: thao tác được `enqueue` vào hàng đợi `{ id, method, url, body, createdAt }`; giao diện hiển thị ngay (cache + hàng đợi) và mục đó có nhãn **"Chưa đồng bộ"**.
+- **Đồng bộ**: `useOutboxSync` tự chạy khi `isOnline` chuyển sang `true` (và thử lại mỗi 20 giây nếu còn thao tác chờ), gửi **tuần tự theo thứ tự thêm vào**; thành công thì `remove` khỏi hàng đợi, lỗi mạng thì dừng và giữ lại để thử sau. Xong thì hiện thông báo "Đã đồng bộ N thay đổi" và tải lại dữ liệu.
+- Bài tập tạo offline có id tạm `local-…`; khi POST thành công, id thật được thay vào các thao tác sau đó trong hàng đợi.
 
-Now that you have successfully run the app, let's make changes!
+## 5. Xử lý xung đột (B5)
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+Mỗi bản ghi có `updatedAt`. Thao tác offline lưu `createdAt` (thời điểm người dùng thao tác). Khi đồng bộ một thao tác `PATCH`:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+1. Gọi `GET` bản ghi hiện tại trên server.
+2. Nếu `server.updatedAt` **mới hơn** `createdAt` của thao tác ⇒ có người đã sửa bản ghi sau lần offline của người dùng ⇒ **ưu tiên dữ liệu server**: bỏ thao tác offline khỏi hàng đợi và báo cho người dùng ("… bị bỏ qua vì dữ liệu trên máy chủ mới hơn").
+3. Ngược lại ⇒ gửi `PATCH` kèm `updatedAt = createdAt`.
+4. Nếu bản ghi không còn trên server (404) cũng ưu tiên server và bỏ thao tác.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Cách này đơn giản, không ghi đè nhầm thay đổi mới hơn (kiểu _last-write-wins_ dựa trên thời gian, nhưng thắng thuộc về server khi mới hơn). Thao tác `POST` không có xung đột vì là bản ghi mới.
 
-## Congratulations! :tada:
+## 6. Cấu trúc thư mục
 
-You've successfully run and modified your React Native App. :partying_face:
+Đúng theo mục 5 của đề (đuôi `.ts`/`.tsx`):
+`api/` (client + service) → `storage/` (cache, outbox) → `hooks/`, `context/` → `screens/` → `components/` (trình bày), cùng `navigation/`, `theme/`, `utils/`.
+Các file bổ sung ngoài đề: `types/index.ts`, `hooks/useDataQueries.ts`, `navigation/stackOptions.ts`, `utils/{errors,id,text,outboxOverlay}.ts`.
 
-### Now what?
+## 7. Kịch bản kiểm thử
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+| #   | Cách thử                                                            | Kết quả                                               |
+| --- | ------------------------------------------------------------------- | ----------------------------------------------------- |
+| 1   | Tắt json-server, mở app lần đầu                                     | Màn hình lỗi + nút "Thử lại"                          |
+| 2   | Có mạng → bật chế độ máy bay → khởi động lại app                    | Dữ liệu từ cache, banner offline, "Cập nhật lần cuối" |
+| 3   | Offline: đánh dấu 2 bài xong, thêm 1 bài                            | UI đổi ngay, nhãn "Chưa đồng bộ"                      |
+| 4   | Tắt chế độ máy bay                                                  | Tự đồng bộ, nhãn mất, `db.json` đổi đúng              |
+| 5   | Offline sửa họ tên; sửa `db.json` với `updatedAt` mới hơn; bật mạng | Giữ dữ liệu server, có thông báo                      |
+| 6   | Tìm môn không tồn tại / lọc học kỳ rỗng                             | Trạng thái rỗng thân thiện                            |
+| 7   | Kéo để làm mới                                                      | Dữ liệu tải lại                                       |
 
-# Troubleshooting
+x") ──────┘
+useOutboxSync gửi lần lượt khi có mạng
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+```
 
-# Learn More
+- **Đọc (GET)**: `useCachedQuery` hiện ngay dữ liệu trong cache, rồi gọi API nếu có mạng; thành công thì cập nhật state và cache (`{ data, savedAt }`).
+- **Ghi (PATCH/POST)**:
+  - Online: gọi API; đổi trạng thái bài tập dùng *optimistic update*, lỗi thì hoàn tác và báo người dùng.
+  - Offline: thao tác được `enqueue` vào hàng đợi `{ id, method, url, body, createdAt }`; giao diện hiển thị ngay (cache + hàng đợi) và mục đó có nhãn **"Chưa đồng bộ"**.
+- **Đồng bộ**: `useOutboxSync` tự chạy khi `isOnline` chuyển sang `true` (và thử lại mỗi 20 giây nếu còn thao tác chờ), gửi **tuần tự theo thứ tự thêm vào**; thành công thì `remove` khỏi hàng đợi, lỗi mạng thì dừng và giữ lại để thử sau. Xong thì hiện thông báo "Đã đồng bộ N thay đổi" và tải lại dữ liệu.
+- Bài tập tạo offline có id tạm `local-…`; khi POST thành công, id thật được thay vào các thao tác sau đó trong hàng đợi.
 
-To learn more about React Native, take a look at the following resources:
+## 5. Xử lý xung đột (B5)
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Mỗi bản ghi có `updatedAt`. Thao tác offline lưu `createdAt` (thời điểm người dùng thao tác). Khi đồng bộ một thao tác `PATCH`:
+
+1. Gọi `GET` bản ghi hiện tại trên server.
+2. Nếu `server.updatedAt` **mới hơn** `createdAt` của thao tác ⇒ có người đã sửa bản ghi sau lần offline của người dùng ⇒ **ưu tiên dữ liệu server**: bỏ thao tác offline khỏi hàng đợi và báo cho người dùng ("… bị bỏ qua vì dữ liệu trên máy chủ mới hơn").
+3. Ngược lại ⇒ gửi `PATCH` kèm `updatedAt = createdAt`.
+4. Nếu bản ghi không còn trên server (404) cũng ưu tiên server và bỏ thao tác.
+
+Cách này đơn giản, không ghi đè nhầm thay đổi mới hơn (kiểu *last-write-wins* dựa trên thời gian, nhưng thắng thuộc về server khi mới hơn). Thao tác `POST` không có xung đột vì là bản ghi mới.
+
+## 6. Cấu trúc thư mục
+
+Đúng theo mục 5 của đề (đuôi `.ts`/`.tsx`):
+`api/` (client + service) → `storage/` (cache, outbox) → `hooks/`, `context/` → `screens/` → `components/` (trình bày), cùng `navigation/`, `theme/`, `utils/`.
+Các file bổ sung ngoài đề: `types/index.ts`, `hooks/useDataQueries.ts`, `navigation/stackOptions.ts`, `utils/{errors,id,text,outboxOverlay}.ts`.
+
+## 7. Kịch bản kiểm thử
+
+| # | Cách thử | Kết quả |
+|---|----------|---------|
+| 1 | Tắt json-server, mở app lần đầu | Màn hình lỗi + nút "Thử lại" |
+| 2 | Có mạng → bật chế độ máy bay → khởi động lại app | Dữ liệu từ cache, banner offline, "Cập nhật lần cuối" |
+| 3 | Offline: đánh dấu 2 bài xong, thêm 1 bài | UI đổi ngay, nhãn "Chưa đồng bộ" |
+| 4 | Tắt chế độ máy bay | Tự đồng bộ, nhãn mất, `db.json` đổi đúng |
+| 5 | Offline sửa họ tên; sửa `db.json` với `updatedAt` mới hơn; bật mạng | Giữ dữ liệu server, có thông báo |
+| 6 | Tìm môn không tồn tại / lọc học kỳ rỗng | Trạng thái rỗng thân thiện |
+| 7 | Kéo để làm mới | Dữ liệu tải lại |
+```

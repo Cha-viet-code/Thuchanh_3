@@ -1,0 +1,320 @@
+{
+  "students": [
+    {
+      "id": 1,
+      "studentCode": "SV2021001",
+      "fullName": "Nguyễn Văn An",
+      "className": "CNTT-K21A",
+      "major": "Công nghệ thông tin",
+      "email": "an.nv@student.edu.vn",
+      "phone": "0912345678",
+      "updatedAt": "2026-10-20T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "studentCode": "SV2021002",
+      "fullName": "Trần Thị Bình",
+      "className": "CNTT-K21A",
+      "major": "Công nghệ thông tin",
+      "email": "binh.tt@student.edu.vn",
+      "phone": "0923456789",
+      "updatedAt": "2026-10-20T08:00:00Z"
+    },
+    {
+      "id": 3,
+      "studentCode": "SV2021003",
+      "fullName": "Lê Minh Châu",
+      "className": "CNTT-K21B",
+      "major": "Công nghệ thông tin",
+      "email": "chau.lm@student.edu.vn",
+      "phone": "0934567890",
+      "updatedAt": "2026-10-20T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "studentCode": "SV2021004",
+      "fullName": "Phạm Quốc Dũng",
+      "className": "HTTT-K21A",
+      "major": "Hệ thống thông tin",
+      "email": "dung.pq@student.edu.vn",
+      "phone": "0945678901",
+      "updatedAt": "2026-10-20T08:00:00Z"
+    },
+    {
+      "id": 5,
+      "studentCode": "SV2021005",
+      "fullName": "Hoàng Thu Hà",
+      "className": "HTTT-K21A",
+      "major": "Hệ thống thông tin",
+      "email": "ha.ht@student.edu.vn",
+      "phone": "0956789012",
+      "updatedAt": "2026-10-20T08:00:00Z"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "code": "INT3120",
+      "name": "Phát triển ứng dụng di động",
+      "credits": 3,
+      "lecturer": "TS. Trần Minh",
+      "description": "Lập trình ứng dụng di động đa nền tảng với React Native.",
+      "semester": "HK1 2026-2027"
+    },
+    {
+      "id": 2,
+      "code": "INT3306",
+      "name": "Phát triển ứng dụng Web",
+      "credits": 3,
+      "lecturer": "PGS.TS. Lê Hoàng",
+      "description": "Xây dựng ứng dụng web hiện đại với HTML, CSS, JavaScript và REST API.",
+      "semester": "HK1 2026-2027"
+    },
+    {
+      "id": 3,
+      "code": "INT2204",
+      "name": "Lập trình hướng đối tượng",
+      "credits": 3,
+      "lecturer": "ThS. Phạm Thu Hà",
+      "description": "Các nguyên lý hướng đối tượng: đóng gói, kế thừa, đa hình và mẫu thiết kế cơ bản.",
+      "semester": "HK1 2026-2027"
+    },
+    {
+      "id": 4,
+      "code": "INT3401",
+      "name": "Trí tuệ nhân tạo",
+      "credits": 3,
+      "lecturer": "TS. Đỗ Quang Huy",
+      "description": "Giới thiệu các thuật toán tìm kiếm, suy diễn và học máy cơ bản.",
+      "semester": "HK1 2026-2027"
+    },
+    {
+      "id": 5,
+      "code": "INT2210",
+      "name": "Cấu trúc dữ liệu và giải thuật",
+      "credits": 4,
+      "lecturer": "ThS. Nguyễn Thị Lan",
+      "description": "Các cấu trúc dữ liệu cơ bản và phân tích độ phức tạp thuật toán.",
+      "semester": "HK2 2025-2026"
+    },
+    {
+      "id": 6,
+      "code": "MAT1093",
+      "name": "Toán rời rạc",
+      "credits": 3,
+      "lecturer": "TS. Vũ Đức Anh",
+      "description": "Logic mệnh đề, lý thuyết tập hợp, đồ thị và tổ hợp.",
+      "semester": "HK2 2025-2026"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "dayOfWeek": 2,
+      "startTime": "07:00",
+      "endTime": "09:30",
+      "room": "P.301-A2",
+      "note": "Mang laptop"
+    },
+    {
+      "id": 2,
+      "courseId": 2,
+      "dayOfWeek": 2,
+      "startTime": "13:00",
+      "endTime": "15:30",
+      "room": "P.205-B1",
+      "note": ""
+    },
+    {
+      "id": 3,
+      "courseId": 3,
+      "dayOfWeek": 3,
+      "startTime": "07:00",
+      "endTime": "09:30",
+      "room": "P.402-A3",
+      "note": "Kiểm tra 15 phút đầu giờ"
+    },
+    {
+      "id": 4,
+      "courseId": 4,
+      "dayOfWeek": 3,
+      "startTime": "09:45",
+      "endTime": "12:15",
+      "room": "P.105-C1",
+      "note": ""
+    },
+    {
+      "id": 5,
+      "courseId": 1,
+      "dayOfWeek": 4,
+      "startTime": "13:00",
+      "endTime": "15:30",
+      "room": "Phòng máy 02",
+      "note": "Thực hành, mang laptop"
+    },
+    {
+      "id": 6,
+      "courseId": 2,
+      "dayOfWeek": 5,
+      "startTime": "07:00",
+      "endTime": "09:30",
+      "room": "P.205-B1",
+      "note": ""
+    },
+    {
+      "id": 7,
+      "courseId": 3,
+      "dayOfWeek": 6,
+      "startTime": "09:45",
+      "endTime": "12:15",
+      "room": "Phòng máy 01",
+      "note": "Thực hành"
+    },
+    {
+      "id": 8,
+      "courseId": 4,
+      "dayOfWeek": 7,
+      "startTime": "07:00",
+      "endTime": "09:30",
+      "room": "P.105-C1",
+      "note": ""
+    }
+  ],
+  "assignments": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "title": "Thực hành 4: API & Offline",
+      "description": "Kết nối API và hỗ trợ chế độ offline.",
+      "dueDate": "2026-11-09T23:59:00Z",
+      "status": "todo",
+      "updatedAt": "2026-10-26T08:00:00Z"
+    },
+    {
+      "id": 2,
+      "courseId": 1,
+      "title": "Thực hành 3: Điều hướng",
+      "description": "Xây dựng ứng dụng quản lý học tập với Bottom Tab và Native Stack.",
+      "dueDate": "2026-10-24T16:59:00Z",
+      "status": "todo",
+      "updatedAt": "2026-10-10T08:00:00Z"
+    },
+    {
+      "id": 3,
+      "courseId": 2,
+      "title": "Bài tập lớn: Website quản lý",
+      "description": "Xây dựng website quản lý sinh viên có đăng nhập và phân quyền.",
+      "dueDate": "2026-11-02T16:59:00Z",
+      "status": "todo",
+      "updatedAt": "2026-10-15T08:00:00Z"
+    },
+    {
+      "id": 4,
+      "courseId": 3,
+      "title": "Bài tập chương 5: Kế thừa",
+      "description": "Làm các bài tập 1–6 cuối chương 5 về kế thừa và đa hình.",
+      "dueDate": "2026-10-30T16:59:00Z",
+      "status": "todo",
+      "updatedAt": "2026-10-18T08:00:00Z"
+    },
+    {
+      "id": 5,
+      "courseId": 4,
+      "title": "Báo cáo: Thuật toán tìm kiếm",
+      "description": "Viết báo cáo so sánh BFS, DFS và A* trên bài toán mê cung.",
+      "dueDate": "2026-11-05T16:59:00Z",
+      "status": "todo",
+      "updatedAt": "2026-10-19T08:00:00Z"
+    },
+    {
+      "id": 6,
+      "courseId": 2,
+      "title": "Quiz HTML/CSS",
+      "description": "Bài kiểm tra trực tuyến về HTML và CSS cơ bản.",
+      "dueDate": "2026-10-20T16:59:00Z",
+      "status": "done",
+      "updatedAt": "2026-10-19T08:00:00Z"
+    },
+    {
+      "id": 7,
+      "courseId": 3,
+      "title": "Lab 2: Lớp và đối tượng",
+      "description": "Cài đặt các lớp Student, Course và quan hệ giữa chúng.",
+      "dueDate": "2026-10-22T16:59:00Z",
+      "status": "done",
+      "updatedAt": "2026-10-21T08:00:00Z"
+    },
+    {
+      "id": 8,
+      "courseId": 4,
+      "title": "Đồ án giữa kỳ",
+      "description": "Cài đặt một agent chơi trò Caro với thuật toán Minimax.",
+      "dueDate": "2026-11-20T16:59:00Z",
+      "status": "todo",
+      "updatedAt": "2026-10-22T08:00:00Z"
+    }
+  ],
+  "grades": [
+    {
+      "id": 1,
+      "courseId": 1,
+      "semester": "HK1 2026-2027",
+      "attendance": 9,
+      "midterm": 7.5,
+      "final": 8.5,
+      "total": 8.25,
+      "letter": "B+"
+    },
+    {
+      "id": 2,
+      "courseId": 2,
+      "semester": "HK1 2026-2027",
+      "attendance": 10,
+      "midterm": 8,
+      "final": 9,
+      "total": 8.8,
+      "letter": "A"
+    },
+    {
+      "id": 3,
+      "courseId": 3,
+      "semester": "HK1 2026-2027",
+      "attendance": 8,
+      "midterm": 6.5,
+      "final": 7,
+      "total": 6.95,
+      "letter": "C+"
+    },
+    {
+      "id": 4,
+      "courseId": 4,
+      "semester": "HK1 2026-2027",
+      "attendance": 9,
+      "midterm": 7,
+      "final": 7.5,
+      "total": 7.5,
+      "letter": "B"
+    },
+    {
+      "id": 5,
+      "courseId": 5,
+      "semester": "HK2 2025-2026",
+      "attendance": 7,
+      "midterm": 5,
+      "final": 6,
+      "total": 5.8,
+      "letter": "C"
+    },
+    {
+      "id": 6,
+      "courseId": 6,
+      "semester": "HK2 2025-2026",
+      "attendance": 6,
+      "midterm": 4,
+      "final": 3.5,
+      "total": 3.9,
+      "letter": "F"
+    }
+  ]
+}
